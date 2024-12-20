@@ -27,14 +27,7 @@ public class HungerEventHandler {
         // Compare levels and update if changed
         if (currentFoodLevel != prevFoodLevel) {
             playerFoodLevels.put(playerId, currentFoodLevel); // Update stored level
-            changeInHunger(player);
-        }
-    }
-
-    public static void changeInHunger(Player player) {
-        if (!player.isLocalPlayer()) {
-            Objects.requireNonNull(player.getServer(), "ServerPlayer is null in PlayerHungerEvent in changeInHunger()")
-                    .sendSystemMessage(Component.literal("Change in hunger!"));
+            HUDManager.hungerChange(player);
         }
     }
 }
