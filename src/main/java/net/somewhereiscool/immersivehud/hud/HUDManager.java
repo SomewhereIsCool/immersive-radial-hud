@@ -4,8 +4,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.Objects;
 
@@ -26,12 +28,26 @@ public class HUDManager {
         }
     }
 
+    @SubscribeEvent
+    public static void playerInWater(LivingBreatheEvent event) {
+        // Add HUD indicator for player in water (bubble)
+        if(event.canBreathe()) {
+
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerHasArmor(PlayerTickEvent.Pre event) {
+        // Add HUD indicator for armor
+    }
+
+
+
     public static void healthChange(Player player) {
         Objects.requireNonNull(player.getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("HP Change"));
     }
 
     public static void hungerChange(Player player) {
         Objects.requireNonNull(player.getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("Hunger Change"));
-
     }
 }
