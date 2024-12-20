@@ -31,17 +31,19 @@ public class HUDManager {
     @SubscribeEvent
     public static void playerInWater(LivingBreatheEvent event) {
         // Add HUD indicator for player in water (bubble)
-        if(event.canBreathe()) {
-
+        if(!event.canBreathe() && !event.getEntity().isControlledByOrIsLocalPlayer()) {
+            event.getEntity().getServer().sendSystemMessage(Component.literal("You are drowning!"));
         }
     }
 
     @SubscribeEvent
     public static void playerHasArmor(PlayerTickEvent.Pre event) {
         // Add HUD indicator for armor
+        Player player = event.getEntity();
+        if (player.getArmorValue() > 0 && !event.getEntity().isControlledByOrIsLocalPlayer()) {
+            event.getEntity().getServer().sendSystemMessage(Component.literal("You have armor!"));
+        }
     }
-
-
 
     public static void healthChange(Player player) {
         Objects.requireNonNull(player.getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("HP Change"));
