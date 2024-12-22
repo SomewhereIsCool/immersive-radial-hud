@@ -71,7 +71,6 @@ public class HUDGraphics extends Screen {
         // Stop any handlers here
         this.minecraft.player.getInventory().setSelectedHotbarSlot(degreeSelected);
 
-
         // Call last in case it interferes with the override
         super.onClose();
     }
