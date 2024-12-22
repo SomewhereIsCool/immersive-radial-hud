@@ -3,6 +3,7 @@ package net.somewhereiscool.immersivehud.hud;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,12 +18,8 @@ public class HUDGraphics extends Screen {
     private int xCenter;
     private int yCenter;
 
-    private double currentDegree;
     private double degreeFactor;
     private int degreeSelected;
-
-    ItemStack heldItem;
-    ItemStack offhandItem;
 
     protected HUDGraphics(Component title) {
         super(title);
@@ -34,6 +31,7 @@ public class HUDGraphics extends Screen {
         return false;
     }
 
+    @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         onClose();
         return super.keyReleased(keyCode, scanCode, modifiers);
@@ -51,6 +49,12 @@ public class HUDGraphics extends Screen {
         // Add widgets and precomputed values
         xCenter = (this.width / 2) - 8;
         yCenter = (this.height / 2) - 8;
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
@@ -90,7 +94,7 @@ public class HUDGraphics extends Screen {
 
         int maxItems = Inventory.SELECTION_SIZE;
         degreeFactor = (double) 360 / maxItems;
-        currentDegree = -90;
+        double currentDegree = -90;
 
         for(int i = 0; i < maxItems; i++) {
             int xOffset = (int) (MAX_RADIUS * Math.cos(Math.toRadians(currentDegree)));
@@ -107,19 +111,17 @@ public class HUDGraphics extends Screen {
 
     public void calculateDesiredSlot(GuiGraphics graphics, int mouseX, int mouseY) {
         // Calculates the difference from the cursor to the center of the screen
-        int xDiff = xCenter - mouseX; // Reversed xDiff to maintain screen coordinate consistency
-        int yDiff = yCenter - mouseY; // Reversed yDiff to maintain screen coordinate consistency
+        int xDiff = xCenter - mouseX;
+        int yDiff = yCenter - mouseY;
 
         double angle = Math.toDegrees(Math.atan2(yDiff, xDiff));
         angle -= degreeFactor * 2;
 
-        // Normalize the angle to [0, 360]
         if (angle < 0) {
             angle += 360;
         }
 
         // Determine the selected slot
         degreeSelected = (int) (angle / degreeFactor);
-
     }
 }
