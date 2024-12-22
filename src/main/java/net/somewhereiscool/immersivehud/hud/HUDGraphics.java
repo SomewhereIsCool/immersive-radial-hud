@@ -3,47 +3,58 @@ package net.somewhereiscool.immersivehud.hud;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ImageWidget;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import assets.minecraft.*;
-import net.neoforged.neoforge.client.event.RenderTooltipEvent;
-import net.somewhereiscool.immersivehud.ImmersiveRadialHUD;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+
+import java.awt.event.KeyEvent;
+
+import static net.minecraft.world.item.Items.BIRCH_LOG;
 
 public class HUDGraphics extends Screen {
     private final KeyMapping keybind;
-    private final Player player;
-    private static final ResourceLocation CROSSHAIR = ResourceLocation.fromNamespaceAndPath(String.valueOf(Minecraft.getInstance()), "textures/gui/sprites/hud/crosshair.png");
-    private static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath(String.valueOf(Minecraft.getInstance()), "textures/gui/sprites/container/inventory/effect_background_small.png");
-    private static final Integer RADIUS = 20;
+    private static final ResourceLocation CROSSHAIR = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/hud/crosshair.png");
+    private static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/container/inventory/effect_background_small.png");
+    private static final Integer RADIUS = 50;
 
-    float xCenter;
-    float yCenter;
+    int xCenter;
+    int yCenter;
 
     protected HUDGraphics(Component title) {
         super(title);
-        keybind = HUDKeybinds.OPENHUDRADIAL;
-        player = Minecraft.getInstance().player;
+        this.keybind = HUDKeybinds.OPENHUDRADIAL;
+    }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
+
+    @Override
+    protected void renderBlurredBackground() {
+        return;
     }
 
     @Override
     protected void init() {
         super.init();
 
-        // ImageWidget widget = ImageWidget.texture(10, 10, SLOT, 10, 10);
+        xCenter = (this.width / 2) - 8;
+        yCenter = (this.height / 2) - 8;
 
         // Add widgets and precomputed values
-        this.addRenderableOnly(widget);
     }
 
     @Override
     public void tick() {
         super.tick();
-
 
     }
 
@@ -65,29 +76,41 @@ public class HUDGraphics extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        drawItems(graphics, mouseX, mouseY);
 
+        // super.render(graphics, mouseX, mouseY, partialTick);
     }
 
-    public void drawItems() {
+
+
+    public void drawItems(GuiGraphics graphics, int mouseX, int mouseY) {
         // Get items and make a circle out of it
         // I would need to access the current players inventory
 
         int maxItems = Inventory.SELECTION_SIZE;
-        double degreeFactor = ((double) maxItems / 360);
-        double currentDegree = 0;
-
+        double degreeFactor = (double) 360 / maxItems;
+        double currentDegree = -90;
 
         for(int i = 0; i < maxItems; i++) {
+
+            int xOffset = (int) (RADIUS * Math.cos(Math.toRadians(currentDegree)));
+            int yOffset = (int) (RADIUS * Math.sin(Math.toRadians(currentDegree)));
+
+            ItemStack item = this.minecraft.player.getInventory().getItem(i);
+            graphics.renderItem(item, xCenter + xOffset, yCenter + yOffset);
+
             currentDegree += degreeFactor;
-
-            double xOffset = RADIUS * Math.cos(Math.toRadians(currentDegree));
-            double yOffset = RADIUS * Math.sin(Math.toRadians(currentDegree));
-
-            player.getInventory().getItem(i);
         }
     }
 
-    public void calculateDesiredSlot(Player player) {
-        player.getInventory().pickSlot(0);
+
+    public void calculateDesiredSlot(GuiGraphics graphics, int mouseX, int mouseY) {
+        // Calculates the angle by getting difference from cursor and center of the screen
+        int xDiff = xCenter-mouseX;
+        int yDiff = yCenter-mouseY;
+
+        double angle = Math.tan((double) yDiff/xDiff);
+
+
     }
 }

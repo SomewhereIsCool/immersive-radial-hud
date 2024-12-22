@@ -1,9 +1,11 @@
 package net.somewhereiscool.immersivehud.hud;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
@@ -42,6 +44,16 @@ public class HUDManager {
         Player player = event.getEntity();
         if (player.getArmorValue() > 0 && !event.getEntity().isControlledByOrIsLocalPlayer()) {
             event.getEntity().getServer().sendSystemMessage(Component.literal("You have armor!"));
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerPressesKeybind(InputEvent.Key event) {
+        Minecraft mcInstance = Minecraft.getInstance();
+        if(HUDKeybinds.OPENHUDRADIAL.isDown()) {
+            if(mcInstance.player.isLocalPlayer()) {
+                mcInstance.setScreen(new HUDGraphics(Component.literal("test")));
+            }
         }
     }
 
