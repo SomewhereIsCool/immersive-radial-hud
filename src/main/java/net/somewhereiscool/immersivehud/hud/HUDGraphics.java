@@ -7,9 +7,13 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.event.entity.living.LivingSwapItemsEvent;
 import org.lwjgl.glfw.GLFW;
 
 public class HUDGraphics extends Screen {
@@ -23,10 +27,9 @@ public class HUDGraphics extends Screen {
     private double currentDegree;
     private double degreeFactor;
     private int degreeSelected;
-    private boolean shouldGoToOffhand = false;
 
-    ItemStack heldItem = Minecraft.getInstance().player.getMainHandItem();
-    ItemStack offhandItem = Minecraft.getInstance().player.getOffhandItem();
+    ItemStack heldItem;
+    ItemStack offhandItem;
 
     protected HUDGraphics(Component title) {
         super(title);
@@ -36,17 +39,6 @@ public class HUDGraphics extends Screen {
     @Override
     public boolean isPauseScreen() {
         return false;
-    }
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if(button == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
-            shouldGoToOffhand = true;
-            onClose();
-            removed();
-        }
-
-        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
@@ -80,7 +72,6 @@ public class HUDGraphics extends Screen {
         this.minecraft.player.getInventory().setSelectedHotbarSlot(degreeSelected);
 
 
-
         // Call last in case it interferes with the override
         super.onClose();
     }
@@ -88,6 +79,7 @@ public class HUDGraphics extends Screen {
     @Override
     public void removed() {
         // Reset initial states here
+
 
         // Call last in case it interferes with the override
         super.removed();
