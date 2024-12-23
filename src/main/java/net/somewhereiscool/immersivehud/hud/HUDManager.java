@@ -1,6 +1,7 @@
 package net.somewhereiscool.immersivehud.hud;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -56,6 +57,18 @@ public class HUDManager {
             }
         }
     }
+
+    /*
+    @SubscribeEvent
+    public static void playerHidesGUI(InputEvent.Key event) {
+        Minecraft mcInstance = Minecraft.getInstance();
+        if(mcInstance.player.isLocalPlayer()) {
+            if(HUDKeybinds.RADIALSETTINGS.isDown()) {
+                mcInstance.setScreen(new HUDRadialGraphics(Component.literal("test")));
+            }
+        }
+    }
+    */
 
     public static void healthChange(Player player) {
         Objects.requireNonNull(player.getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("HP Change"));
