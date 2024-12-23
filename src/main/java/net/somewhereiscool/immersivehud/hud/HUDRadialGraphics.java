@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 
-public class HUDGraphics extends Screen {
+public class HUDRadialGraphics extends Screen {
     private static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/hud/hotbar_selection.png");
     private static final Integer MAX_RADIUS = 50;
 
@@ -21,7 +21,7 @@ public class HUDGraphics extends Screen {
     private double degreeFactor;
     private int degreeSelected;
 
-    protected HUDGraphics(Component title) {
+    protected HUDRadialGraphics(Component title) {
         super(title);
     }
 

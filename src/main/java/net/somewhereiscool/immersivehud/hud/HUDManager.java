@@ -52,7 +52,7 @@ public class HUDManager {
         Minecraft mcInstance = Minecraft.getInstance();
         if(HUDKeybinds.OPENHUDRADIAL.isDown()) {
             if(mcInstance.player.isLocalPlayer()) {
-                mcInstance.setScreen(new HUDGraphics(Component.literal("test")));
+                mcInstance.setScreen(new HUDRadialGraphics(Component.literal("test")));
             }
         }
     }
