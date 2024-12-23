@@ -30,8 +30,7 @@ public class HUDGraphics extends Screen {
     public boolean isPauseScreen() {
         return false;
     }
-
-
+    
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         onClose();
