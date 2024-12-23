@@ -34,8 +34,8 @@ public class HUDManager {
     @SubscribeEvent
     public static void playerInWater(LivingBreatheEvent event) {
         // Add HUD indicator for player in water (bubble)
-        if(!event.canBreathe() && !event.getEntity().isControlledByOrIsLocalPlayer()) {
-            event.getEntity().getServer().sendSystemMessage(Component.literal("You are drowning!"));
+        if(!event.canBreathe() && (event.getEntity().getServer() != null)) {
+            Objects.requireNonNull(event.getEntity().getServer(), "Get server is null").sendSystemMessage(Component.literal("You are drowning!"));
         }
     }
 
@@ -52,6 +52,7 @@ public class HUDManager {
     public static void playerPressesKeybind(InputEvent.Key event) {
         Minecraft mcInstance = Minecraft.getInstance();
         if(HUDKeybinds.OPENHUDRADIAL.isDown()) {
+            assert mcInstance.player != null;
             if(mcInstance.player.isLocalPlayer()) {
                 mcInstance.setScreen(new HUDRadialGraphics(Component.literal("test")));
             }
