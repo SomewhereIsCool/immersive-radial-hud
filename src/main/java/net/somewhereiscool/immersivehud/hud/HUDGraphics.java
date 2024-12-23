@@ -3,16 +3,16 @@ package net.somewhereiscool.immersivehud.hud;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
 
 public class HUDGraphics extends Screen {
-    private final KeyMapping keybind;
-    private static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/container/inventory/effect_background_small.png");
+    private static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/hud/hotbar_selection.png");
     private static final Integer MAX_RADIUS = 50;
 
     private int xCenter;
@@ -23,7 +23,6 @@ public class HUDGraphics extends Screen {
 
     protected HUDGraphics(Component title) {
         super(title);
-        this.keybind = HUDKeybinds.OPENHUDRADIAL;
     }
 
     @Override
@@ -47,8 +46,8 @@ public class HUDGraphics extends Screen {
         super.init();
 
         // Add widgets and precomputed values
-        xCenter = (this.width / 2) - 8;
-        yCenter = (this.height / 2) - 8;
+        xCenter = (this.width / 2);
+        yCenter = (this.height / 2);
     }
 
     @Override
@@ -85,6 +84,7 @@ public class HUDGraphics extends Screen {
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         drawItems(graphics, mouseX, mouseY);
 
+
         // super.render(graphics, mouseX, mouseY, partialTick);
     }
 
@@ -93,7 +93,7 @@ public class HUDGraphics extends Screen {
         // I would need to access the current players inventory
 
         int maxItems = Inventory.SELECTION_SIZE;
-        degreeFactor = (double) 360 / maxItems;
+        degreeFactor = (double)360 / maxItems;
         double currentDegree = -90;
 
         for(int i = 0; i < maxItems; i++) {
@@ -101,8 +101,18 @@ public class HUDGraphics extends Screen {
             int yOffset = (int) (MAX_RADIUS * Math.sin(Math.toRadians(currentDegree)));
 
             ItemStack item = this.minecraft.player.getInventory().getItem(i);
-            graphics.renderItem(item, xCenter + xOffset, yCenter + yOffset);
+            // graphics.blit(RenderType.GUI_TEXTURED, SLOT, (xCenter + xOffset) - 12, (yCenter + yOffset) - 12, 0, 0, 24, 23, 24, 23, ARGB.color(255, 255, 255, 255));
 
+            // Half is key
+            graphics.renderItem(item, xCenter + xOffset - 8, yCenter + yOffset - 8, 0, -10);
+            graphics.pose().pushPose();
+            graphics.pose().translate(0,0, 200);
+
+            if(!item.isEmpty() && item.getCount() > 1) {
+                graphics.drawString(minecraft.font, Component.literal(String.valueOf(item.getCount())), xCenter + xOffset + 3, yCenter + yOffset + 1, ARGB.color(255, 255, 255, 255));
+            }
+
+            graphics.pose().popPose();
             currentDegree += degreeFactor;
         }
 
@@ -111,17 +121,26 @@ public class HUDGraphics extends Screen {
 
     public void calculateDesiredSlot(GuiGraphics graphics, int mouseX, int mouseY) {
         // Calculates the difference from the cursor to the center of the screen
-        int xDiff = xCenter - mouseX;
-        int yDiff = yCenter - mouseY;
-
-        double angle = Math.toDegrees(Math.atan2(yDiff, xDiff));
-        angle -= degreeFactor * 2;
+        double angle = Math.toDegrees(Math.atan2(yCenter - mouseY, xCenter - mouseX));
+        angle -= (90 - (degreeFactor/2));
 
         if (angle < 0) {
             angle += 360;
         }
 
         // Determine the selected slot
-        degreeSelected = (int) (angle / degreeFactor);
+        degreeSelected = (int) (angle / degreeFactor); // should be good in terms of value
+        ItemStack item = this.minecraft.player.getInventory().getItem(degreeSelected);
+
+        if(!item.isEmpty()) {
+            graphics.drawCenteredString(minecraft.font, Component.literal(item.getItem().getName().getString()), xCenter, yCenter + (this.height/4), ARGB.color(255, 255, 255, 255));
+        }
+
+        double angleToItem = (degreeFactor * degreeSelected) - (90);
+        int xLength = (int) (MAX_RADIUS * Math.cos(Math.toRadians(angleToItem)));
+        int yLength = (int) (MAX_RADIUS * Math.sin(Math.toRadians(angleToItem)));
+
+        // Round
+        graphics.blit(RenderType.GUI_TEXTURED, SLOT, (xCenter + xLength) - 12, (yCenter + yLength) - 12, 0, 0, 24, 23, 24, 23, ARGB.color(255, 255, 255, 255));
     }
 }
