@@ -1,6 +1,5 @@
 package net.somewhereiscool.immersivehud.hud;
 
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderType;
@@ -9,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 
 public class HUDGraphics extends Screen {
@@ -38,7 +38,6 @@ public class HUDGraphics extends Screen {
 
     @Override
     protected void renderBlurredBackground() {
-        return;
     }
 
     @Override
@@ -65,6 +64,8 @@ public class HUDGraphics extends Screen {
     @Override
     public void onClose() {
         // Stop any handlers here
+        assert this.minecraft != null;
+        assert this.minecraft.player != null;
         this.minecraft.player.getInventory().setSelectedHotbarSlot(degreeSelected);
 
         // Call last in case it interferes with the override
@@ -81,7 +82,7 @@ public class HUDGraphics extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         drawItems(graphics, mouseX, mouseY);
 
 
@@ -100,6 +101,8 @@ public class HUDGraphics extends Screen {
             int xOffset = (int) (MAX_RADIUS * Math.cos(Math.toRadians(currentDegree)));
             int yOffset = (int) (MAX_RADIUS * Math.sin(Math.toRadians(currentDegree)));
 
+            assert this.minecraft != null;
+            assert this.minecraft.player != null;
             ItemStack item = this.minecraft.player.getInventory().getItem(i);
             // graphics.blit(RenderType.GUI_TEXTURED, SLOT, (xCenter + xOffset) - 12, (yCenter + yOffset) - 12, 0, 0, 24, 23, 24, 23, ARGB.color(255, 255, 255, 255));
 
@@ -130,6 +133,8 @@ public class HUDGraphics extends Screen {
 
         // Determine the selected slot
         degreeSelected = (int) (angle / degreeFactor); // should be good in terms of value
+        assert this.minecraft != null;
+        assert this.minecraft.player != null;
         ItemStack item = this.minecraft.player.getInventory().getItem(degreeSelected);
 
         if(!item.isEmpty()) {
