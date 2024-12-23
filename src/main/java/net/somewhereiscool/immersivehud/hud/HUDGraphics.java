@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -30,6 +31,7 @@ public class HUDGraphics extends Screen {
         return false;
     }
 
+
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
         onClose();
@@ -50,15 +52,8 @@ public class HUDGraphics extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-
-        return super.keyPressed(keyCode, scanCode, modifiers);
-    }
-
-    @Override
     public void tick() {
         super.tick();
-
     }
 
     @Override
