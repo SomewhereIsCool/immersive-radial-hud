@@ -76,7 +76,6 @@ public class HUDGraphics extends Screen {
     public void removed() {
         // Reset initial states here
 
-
         // Call last in case it interferes with the override
         super.removed();
     }
@@ -85,13 +84,11 @@ public class HUDGraphics extends Screen {
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         drawItems(graphics, mouseX, mouseY);
 
-
         // super.render(graphics, mouseX, mouseY, partialTick);
     }
 
     public void drawItems(GuiGraphics graphics, int mouseX, int mouseY) {
         // Get items and make a circle out of it
-        // I would need to access the current players inventory
 
         int maxItems = Inventory.SELECTION_SIZE;
         degreeFactor = (double)360 / maxItems;
@@ -104,9 +101,7 @@ public class HUDGraphics extends Screen {
             assert this.minecraft != null;
             assert this.minecraft.player != null;
             ItemStack item = this.minecraft.player.getInventory().getItem(i);
-            // graphics.blit(RenderType.GUI_TEXTURED, SLOT, (xCenter + xOffset) - 12, (yCenter + yOffset) - 12, 0, 0, 24, 23, 24, 23, ARGB.color(255, 255, 255, 255));
 
-            // Half is key
             graphics.renderItem(item, xCenter + xOffset - 8, yCenter + yOffset - 8, 0, -10);
             graphics.pose().pushPose();
             graphics.pose().translate(0,0, 200);
@@ -145,7 +140,6 @@ public class HUDGraphics extends Screen {
         int xLength = (int) (MAX_RADIUS * Math.cos(Math.toRadians(angleToItem)));
         int yLength = (int) (MAX_RADIUS * Math.sin(Math.toRadians(angleToItem)));
 
-        // Round
         graphics.blit(RenderType.GUI_TEXTURED, SLOT, (xCenter + xLength) - 12, (yCenter + yLength) - 12, 0, 0, 24, 23, 24, 23, ARGB.color(255, 255, 255, 255));
     }
 }
