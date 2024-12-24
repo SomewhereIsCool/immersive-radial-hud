@@ -10,7 +10,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-
 public class HUDRadialGraphics extends Screen {
     private static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/hud/hotbar_selection.png");
     private static final Integer MAX_RADIUS = 50;
@@ -68,7 +67,6 @@ public class HUDRadialGraphics extends Screen {
     @Override
     public void removed() {
         // Reset initial states here
-
         // Call last in case it interferes with the override
         super.removed();
     }
@@ -76,7 +74,6 @@ public class HUDRadialGraphics extends Screen {
     @Override
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         drawItems(graphics, mouseX, mouseY);
-
         // super.render(graphics, mouseX, mouseY, partialTick);
     }
 
