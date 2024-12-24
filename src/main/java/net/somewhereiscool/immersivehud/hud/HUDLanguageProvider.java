@@ -14,5 +14,4 @@ public class HUDLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         this.add(HUDKeybind.getCategory(), "HUD Keybinds");
     }
-
 }
