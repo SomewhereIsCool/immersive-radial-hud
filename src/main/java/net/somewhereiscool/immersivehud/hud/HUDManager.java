@@ -66,8 +66,4 @@ public class HUDManager {
         Objects.requireNonNull(player.getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("Hunger Change"));
     }
 
-    @SubscribeEvent
-    public static void registerHUDOverlay(RegisterGuiLayersEvent event) {
-
-    }
 }
