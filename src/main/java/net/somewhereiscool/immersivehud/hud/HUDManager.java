@@ -1,7 +1,9 @@
 package net.somewhereiscool.immersivehud.hud;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -65,7 +67,7 @@ public class HUDManager {
     }
 
     @SubscribeEvent
-    public static void registerHUDOverlay() {
+    public static void registerHUDOverlay(RegisterGuiLayersEvent event) {
 
     }
 }
