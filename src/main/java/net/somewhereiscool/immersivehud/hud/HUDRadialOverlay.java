@@ -22,6 +22,7 @@ public class HUDRadialOverlay extends LayeredDraw {
     private static int degreeSelected;
 
     protected HUDRadialOverlay() {
+        assert Minecraft.getInstance().screen != null;
         xCenter = (Minecraft.getInstance().screen.width / 2);
         yCenter = (Minecraft.getInstance().screen.height / 2);
     }
@@ -32,7 +33,6 @@ public class HUDRadialOverlay extends LayeredDraw {
 
     public static void drawItems(GuiGraphics graphics, int mouseX, int mouseY) {
         // Get items and make a circle out of it
-
         int maxItems = Inventory.SELECTION_SIZE;
         degreeFactor = (double)360 / maxItems;
         double currentDegree = -90;
@@ -83,5 +83,4 @@ public class HUDRadialOverlay extends LayeredDraw {
 
         graphics.blit(RenderType.GUI_TEXTURED, SLOT, (xCenter + xLength) - 12, (yCenter + yLength) - 12, 0, 0, 24, 23, 24, 23, ARGB.color(255, 255, 255, 255));
     }
-
 }
