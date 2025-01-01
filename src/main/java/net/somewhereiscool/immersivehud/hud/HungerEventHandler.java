@@ -1,6 +1,5 @@
 package net.somewhereiscool.immersivehud.hud;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -8,12 +7,11 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 @EventBusSubscriber
 public class HungerEventHandler {
-    private static final Map<UUID, Integer> playerFoodLevels = new HashMap<UUID, Integer>();
+    private static final Map<UUID, Integer> playerFoodLevels = new HashMap<>();
 
     @SubscribeEvent
     public static void checkChangeInHunger(PlayerTickEvent.Pre event) {

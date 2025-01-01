@@ -1,7 +1,7 @@
 package net.somewhereiscool.immersivehud.hud;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -14,9 +14,26 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.Objects;
 
+/*
+* The "control center" for the HUD. It manages when graphics should be applied,
+* looks for events to apply to HUDRadialOverlay
+*
+*
+ */
+
 @EventBusSubscriber
 public class HUDManager {
-    // Two events that check if the game notices HP change of a player, will likely be never used as the events are triggered
+    @SubscribeEvent
+    public static void checkKeyPresses(InputEvent.Key key) {
+        if(key.getKey() == HUDKeybinds.OPENHUDRADIAL.getKey().getValue()) {
+            // Render just the items
+            Minecraft.getInstance().setOverlay(new HUDRadialOverlay(key, Minecraft.getInstance()));
+        }
+    }
+
+    /*
+    * Events below check if the player changes HP, changes hunger, is underwater, or has armor
+     */
     @SubscribeEvent
     public static void playerIncreaseHP(LivingHealEvent livingHealEvent) {
         if(livingHealEvent.getEntity() instanceof Player player) {
@@ -44,32 +61,9 @@ public class HUDManager {
         // Add HUD indicator for armor
         Player player = event.getEntity();
         if (player.getArmorValue() > 0 && !event.getEntity().isControlledByOrIsLocalPlayer()) {
-            event.getEntity().getServer().sendSystemMessage(Component.literal("You have armor!"));
+            Objects.requireNonNull(event.getEntity().getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("You have armor!"));
         }
     }
-
-    @SubscribeEvent
-    public static void playerPressesKeybind(InputEvent.Key event) {
-        Minecraft mcInstance = Minecraft.getInstance();
-        if(HUDKeybinds.OPENHUDRADIAL.isDown()) {
-            assert mcInstance.player != null;
-            if(mcInstance.player.isLocalPlayer()) {
-                mcInstance.setScreen(new HUDRadialGraphics(Component.literal("test")));
-            }
-        }
-    }
-
-    /*
-    @SubscribeEvent
-    public static void playerHidesGUI(InputEvent.Key event) {
-        Minecraft mcInstance = Minecraft.getInstance();
-        if(mcInstance.player.isLocalPlayer()) {
-            if(HUDKeybinds.RADIALSETTINGS.isDown()) {
-                mcInstance.setScreen(new HUDRadialGraphics(Component.literal("test")));
-            }
-        }
-    }
-    */
 
     public static void healthChange(Player player) {
         Objects.requireNonNull(player.getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("HP Change"));
@@ -78,4 +72,5 @@ public class HUDManager {
     public static void hungerChange(Player player) {
         Objects.requireNonNull(player.getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("Hunger Change"));
     }
+
 }
