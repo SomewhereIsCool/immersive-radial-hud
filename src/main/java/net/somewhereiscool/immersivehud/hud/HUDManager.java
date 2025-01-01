@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Input;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -19,14 +20,25 @@ import java.util.Objects;
 
 /*
 * The "control center" for the HUD. It manages when graphics should be applied,
-* looks for events to apple to HUDRadialGraphics
+* looks for events to apply to HUDRadialOverlay
 *
 *
  */
 
 @EventBusSubscriber
 public class HUDManager {
-    // Two events that check if the game notices HP change of a player, will likely be never used as the events are triggered
+    @SubscribeEvent
+    public static void checkKeyPresses(InputEvent.Key key) {
+        if(key.getKey() == HUDKeybinds.OPENHUDRADIAL.getKey().getValue()) {
+            // Render just the items
+        }
+        // If the key is released, then
+    }
+
+
+    /*
+    * Events below check if the player changes HP, changes hunger, is underwater, or has armor
+     */
     @SubscribeEvent
     public static void playerIncreaseHP(LivingHealEvent livingHealEvent) {
         if(livingHealEvent.getEntity() instanceof Player player) {
