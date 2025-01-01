@@ -6,7 +6,6 @@ import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.client.settings.KeyModifier;
 import org.lwjgl.glfw.GLFW;
 
-
 import java.util.ArrayList;
 import java.util.List;
 

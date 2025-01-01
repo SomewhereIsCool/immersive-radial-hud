@@ -1,23 +1,18 @@
 package net.somewhereiscool.immersivehud.hud;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
-import net.minecraft.world.entity.player.Input;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.event.InputEvent;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
-
-import java.util.Optional;
 
 public class HUDRadialOverlay extends Overlay {
     private static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/hud/hotbar_selection.png");
@@ -54,8 +49,9 @@ public class HUDRadialOverlay extends Overlay {
     }
 
     public static void checkKeyReleased() {
-        if(!InputConstants.isKeyDown(window, key.getKey())) {
+        if(!InputConstants.isKeyDown(window, key.getKey()) && mcInstance.getOverlay() instanceof HUDRadialOverlay) {
             mcInstance.setOverlay(null);
+
             assert mcInstance.player != null;
             mcInstance.player.getInventory().setSelectedHotbarSlot(degreeSelected);
             GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_HIDDEN);
