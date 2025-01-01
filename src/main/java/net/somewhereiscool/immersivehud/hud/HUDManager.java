@@ -1,7 +1,6 @@
 package net.somewhereiscool.immersivehud.hud;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
 
 import net.minecraft.network.chat.Component;
@@ -30,6 +29,28 @@ public class HUDManager {
     private static boolean hudEnabled = false;
 
     @SubscribeEvent
+    public static void handleKeyPresses(InputEvent.Key key) {
+        if(pressAllowed()) {
+            checkKeyPresses(key);
+        }
+    }
+
+    public static boolean pressAllowed() {
+        /** TODO: Must implement pressAllowed() feature
+        Gui gui = mcInstance.gui;
+        switch(screenName) {
+            case ChatScreen c -> {
+                return false;
+            }
+            case null -> {}
+            default -> {
+                return true;
+            }
+        }
+         */
+        return true;
+    }
+
     public static void checkKeyPresses(InputEvent.Key key) {
         if(key.getKey() == HUDKeybinds.OPENHUDRADIAL.getKey().getValue()) {
             // Render just the items
