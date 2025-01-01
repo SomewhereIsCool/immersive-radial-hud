@@ -1,5 +1,7 @@
 package net.somewhereiscool.immersivehud.hud;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
@@ -8,13 +10,19 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
+import net.minecraft.world.entity.player.Input;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.client.event.InputEvent;
 import org.jetbrains.annotations.NotNull;
+import org.lwjgl.glfw.GLFW;
+
+import java.util.Optional;
 
 public class HUDRadialOverlay extends Overlay {
     private static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/hud/hotbar_selection.png");
     private static final Integer MAX_RADIUS = 50;
+    private static Minecraft mcInstance;
 
     private static int xCenter;
     private static int yCenter;
@@ -22,7 +30,16 @@ public class HUDRadialOverlay extends Overlay {
     private static double degreeFactor;
     private static int degreeSelected;
 
-    protected HUDRadialOverlay() {}
+    private static InputEvent.Key key;
+    private static long window;
+
+    protected HUDRadialOverlay(InputEvent.Key keyBind, Minecraft mc) {
+        key = keyBind;
+        mcInstance = mc;
+        window = mc.getWindow().getWindow();
+        GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
+        mcInstance.mouseHandler.releaseMouse();
+    }
 
     @Override
     public boolean isPauseScreen() {
@@ -30,9 +47,20 @@ public class HUDRadialOverlay extends Overlay {
     }
 
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        checkKeyReleased();
         xCenter = graphics.guiWidth()/2;
         yCenter = graphics.guiHeight()/2;
         drawItems(graphics, mouseX, mouseY);
+    }
+
+    public static void checkKeyReleased() {
+        if(!InputConstants.isKeyDown(window, key.getKey())) {
+            mcInstance.setOverlay(null);
+            assert mcInstance.player != null;
+            mcInstance.player.getInventory().setSelectedHotbarSlot(degreeSelected);
+            GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_HIDDEN);
+            mcInstance.mouseHandler.grabMouse();
+        }
     }
 
     public void drawItems(GuiGraphics graphics, int mouseX, int mouseY) {

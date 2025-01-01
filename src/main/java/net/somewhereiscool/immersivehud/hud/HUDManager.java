@@ -31,10 +31,9 @@ public class HUDManager {
     public static void checkKeyPresses(InputEvent.Key key) {
         if(key.getKey() == HUDKeybinds.OPENHUDRADIAL.getKey().getValue()) {
             // Render just the items
+            Minecraft.getInstance().setOverlay(new HUDRadialOverlay(key, Minecraft.getInstance()));
         }
-        // If the key is released, then
     }
-
 
     /*
     * Events below check if the player changes HP, changes hunger, is underwater, or has armor
