@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @EventBusSubscriber
 public class HungerEventHandler {
-    private static final Map<UUID, Integer> playerFoodLevels = new HashMap<UUID, Integer>();
+    private static final Map<UUID, Integer> playerFoodLevels = new HashMap<>();
 
     @SubscribeEvent
     public static void checkChangeInHunger(PlayerTickEvent.Pre event) {

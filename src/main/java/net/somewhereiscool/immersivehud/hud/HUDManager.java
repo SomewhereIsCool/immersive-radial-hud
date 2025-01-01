@@ -61,7 +61,7 @@ public class HUDManager {
         // Add HUD indicator for armor
         Player player = event.getEntity();
         if (player.getArmorValue() > 0 && !event.getEntity().isControlledByOrIsLocalPlayer()) {
-            event.getEntity().getServer().sendSystemMessage(Component.literal("You have armor!"));
+            Objects.requireNonNull(event.getEntity().getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("You have armor!"));
         }
     }
 

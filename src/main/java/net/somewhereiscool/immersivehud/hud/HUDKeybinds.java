@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class HUDKeybinds {
-    private static List<KeyMapping> keys = new ArrayList<>();
+    private static final List<KeyMapping> keys = new ArrayList<>();
 
     public static final KeyMapping OPENHUDRADIAL;
     public static final KeyMapping RADIALSETTINGS;
