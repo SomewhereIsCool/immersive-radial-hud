@@ -12,6 +12,7 @@ import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.somewhereiscool.immersivehud.hud.radial.HUDRadialOverlay;
 import net.somewhereiscool.immersivehud.mixin.GuiMixin;
 
 import java.util.Objects;
@@ -35,19 +36,11 @@ public class HUDManager {
         }
     }
 
+    /**TODO: Must implement pressAllowed() feature on cases:
+     *  - When player opens chat screen
+     *  - Much more, ask the community or explore
+     */
     public static boolean pressAllowed() {
-        /** TODO: Must implement pressAllowed() feature
-        Gui gui = mcInstance.gui;
-        switch(screenName) {
-            case ChatScreen c -> {
-                return false;
-            }
-            case null -> {}
-            default -> {
-                return true;
-            }
-        }
-         */
         return true;
     }
 

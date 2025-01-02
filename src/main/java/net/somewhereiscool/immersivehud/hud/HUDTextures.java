@@ -1,7 +1,6 @@
 package net.somewhereiscool.immersivehud.hud;
 
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.somewhereiscool.immersivehud.ImmersiveRadialHUD;
 
 public class HUDTextures {

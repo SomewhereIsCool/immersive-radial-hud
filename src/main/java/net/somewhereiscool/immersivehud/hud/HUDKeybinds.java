@@ -20,6 +20,7 @@ public final class HUDKeybinds {
         return keys;
     }
 
+    // TODO: Consider simpler keybinds
     static {
         OPENHUDRADIAL = new KeyMapping(
                 "Open Radial HUD",
