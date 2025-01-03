@@ -15,13 +15,10 @@ import org.jetbrains.annotations.NotNull;
 
 // Should be called when the player joins
 public class CrosshairHandler implements LayeredDraw.Layer {
-    private static Minecraft mcInstance = Minecraft.getInstance();
-    private static GuiGraphics guiGraphics;
+    private final static Minecraft mcInstance = Minecraft.getInstance();
 
     private static int xCenter;
     private static int yCenter;
-    private static int health;
-    private static int hunger;
 
     public CrosshairHandler() {}
 
