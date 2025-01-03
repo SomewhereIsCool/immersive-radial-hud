@@ -87,4 +87,11 @@ public class GuiMixin {
         }
     }
 
+    @Inject(method = "renderAirLevel", at = @At("HEAD"), cancellable = true)
+    private void renderAirLevel(GuiGraphics p_283143_, CallbackInfo ci) {
+        if(!HUDManager.isHudEnabled()) {
+            ci.cancel();
+            return;
+        }
+    }
 }

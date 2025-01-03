@@ -116,4 +116,8 @@ public class HUDManager {
     public static void setHudEnabled(boolean hudEnabled) {
         HUDManager.hudEnabled = hudEnabled;
     }
+
+    public static Minecraft getMcInstance() {
+        return mcInstance;
+    }
 }

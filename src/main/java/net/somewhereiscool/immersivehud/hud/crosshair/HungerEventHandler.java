@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+//TODO: Consider changing the HungerEventHandler since you know that Minecraft.getInstance() exists
 @EventBusSubscriber
 public class HungerEventHandler {
     private static final Map<UUID, Integer> playerFoodLevels = new HashMap<>();
