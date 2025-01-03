@@ -4,15 +4,18 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.somewhereiscool.immersivehud.ImmersiveRadialHUD;
+import net.somewhereiscool.immersivehud.hud.crosshair.CrosshairHandler;
 import net.somewhereiscool.immersivehud.hud.radial.HUDRadialOverlay;
 import net.somewhereiscool.immersivehud.mixin.GuiMixin;
 
@@ -29,8 +32,6 @@ public class HUDManager {
     private static final Minecraft mcInstance = Minecraft.getInstance();
     private static final long window = mcInstance.getWindow().getWindow();
     private static boolean hudEnabled = false;
-
-
 
     @SubscribeEvent
     public static void handleKeyPresses(InputEvent.Key key) {
