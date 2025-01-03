@@ -8,11 +8,14 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.event.InputEvent;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
+
+import java.util.List;
 
 public class HUDRadialOverlay extends Overlay {
     private static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/hud/hotbar_selection.png");
@@ -106,8 +109,16 @@ public class HUDRadialOverlay extends Overlay {
         assert Minecraft.getInstance().player != null;
         ItemStack item = Minecraft.getInstance().player.getInventory().getItem(degreeSelected);
 
+        // Show item at center while wrapping
         if(!item.isEmpty()) {
-            graphics.drawCenteredString(Minecraft.getInstance().font, Component.literal(item.getItem().getName().getString()), xCenter + 2, yCenter + (graphics.guiHeight()/4), ARGB.color(255, 255, 255, 255));
+            String itemName = item.getItem().getName().getString();
+            List<FormattedCharSequence> lines = Minecraft.getInstance().font.split(Component.literal(itemName), 40);
+            int yOffset = yCenter - 10;
+            for (FormattedCharSequence line : lines) {
+                graphics.drawCenteredString(Minecraft.getInstance().font, line, xCenter, yOffset, ARGB.color(255, 255, 255, 255));
+                yOffset += Minecraft.getInstance().font.lineHeight;
+            }
+            // graphics.drawWordWrap(Minecraft.getInstance().font, Component.literal(item.getItem().getName().getString()), xCenter - 16, yCenter -10, 40, ARGB.color(255, 255, 255, 255));
         }
 
         double angleToItem = (degreeFactor * degreeSelected) - (90);
