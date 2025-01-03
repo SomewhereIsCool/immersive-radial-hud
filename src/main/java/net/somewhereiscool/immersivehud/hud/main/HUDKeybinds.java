@@ -1,4 +1,4 @@
-package net.somewhereiscool.immersivehud.hud;
+package net.somewhereiscool.immersivehud.hud.main;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;

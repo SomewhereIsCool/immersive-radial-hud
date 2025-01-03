@@ -1,4 +1,4 @@
-package net.somewhereiscool.immersivehud.hud;
+package net.somewhereiscool.immersivehud.hud.main;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
@@ -12,6 +12,7 @@ import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.somewhereiscool.immersivehud.ImmersiveRadialHUD;
 import net.somewhereiscool.immersivehud.hud.radial.HUDRadialOverlay;
 import net.somewhereiscool.immersivehud.mixin.GuiMixin;
 
@@ -23,11 +24,13 @@ import java.util.Objects;
 *
 *
  */
-@EventBusSubscriber
+@EventBusSubscriber(modid = ImmersiveRadialHUD.MODID)
 public class HUDManager {
     private static final Minecraft mcInstance = Minecraft.getInstance();
     private static final long window = mcInstance.getWindow().getWindow();
     private static boolean hudEnabled = false;
+
+
 
     @SubscribeEvent
     public static void handleKeyPresses(InputEvent.Key key) {
@@ -41,7 +44,7 @@ public class HUDManager {
      *  - Much more, ask the community or explore
      */
     public static boolean pressAllowed() {
-        return true;
+        return mcInstance.screen == null;
     }
 
     public static void checkKeyPresses(InputEvent.Key key) {

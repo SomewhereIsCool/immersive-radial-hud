@@ -28,7 +28,7 @@ public class HUDRadialOverlay extends Overlay {
     private static InputEvent.Key key;
     private static long window;
 
-    protected HUDRadialOverlay(InputEvent.Key keyBind, Minecraft mc) {
+    public HUDRadialOverlay(InputEvent.Key keyBind, Minecraft mc) {
         key = keyBind;
         mcInstance = mc;
         window = mc.getWindow().getWindow();
@@ -77,7 +77,12 @@ public class HUDRadialOverlay extends Overlay {
             graphics.pose().translate(0,0, 200);
 
             if(!item.isEmpty() && item.getCount() > 1) {
-                graphics.drawString(Minecraft.getInstance().font, Component.literal(String.valueOf(item.getCount())), xCenter + xOffset + 3, yCenter + yOffset + 1, ARGB.color(255, 255, 255, 255));
+                //TODO: Make sure this works for items that reach 3 digits
+                if(item.getCount() > 9) {
+                    graphics.drawCenteredString(Minecraft.getInstance().font, Component.literal(String.valueOf(item.getCount())), xCenter + xOffset + 3, yCenter + yOffset + 1, ARGB.color(255, 255, 255, 255));
+                } else {
+                    graphics.drawString(Minecraft.getInstance().font, Component.literal(String.valueOf(item.getCount())), xCenter + xOffset + 3, yCenter + yOffset + 1, ARGB.color(255, 255, 255, 255));
+                }
             }
 
             graphics.pose().popPose();
@@ -102,7 +107,7 @@ public class HUDRadialOverlay extends Overlay {
         ItemStack item = Minecraft.getInstance().player.getInventory().getItem(degreeSelected);
 
         if(!item.isEmpty()) {
-            graphics.drawCenteredString(Minecraft.getInstance().font, Component.literal(item.getItem().getName().getString()), xCenter, yCenter + (graphics.guiHeight()/4), ARGB.color(255, 255, 255, 255));
+            graphics.drawCenteredString(Minecraft.getInstance().font, Component.literal(item.getItem().getName().getString()), xCenter + 2, yCenter + (graphics.guiHeight()/4), ARGB.color(255, 255, 255, 255));
         }
 
         double angleToItem = (degreeFactor * degreeSelected) - (90);

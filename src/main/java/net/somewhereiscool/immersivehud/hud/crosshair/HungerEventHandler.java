@@ -4,7 +4,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
-import net.somewhereiscool.immersivehud.hud.HUDManager;
+import net.somewhereiscool.immersivehud.hud.main.HUDManager;
 
 import java.util.HashMap;
 import java.util.Map;

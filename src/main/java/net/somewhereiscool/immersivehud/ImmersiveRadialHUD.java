@@ -1,6 +1,6 @@
 package net.somewhereiscool.immersivehud;
 
-import net.somewhereiscool.immersivehud.hud.HUDLanguageProvider;
+import net.somewhereiscool.immersivehud.hud.main.HUDLanguageProvider;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.slf4j.Logger;
