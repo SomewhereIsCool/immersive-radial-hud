@@ -5,7 +5,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.telemetry.TelemetryProperty;
 import net.minecraft.util.ARGB;
 import net.somewhereiscool.immersivehud.hud.radial.HUDRadialOverlay;
 import org.jetbrains.annotations.NotNull;
@@ -40,6 +39,7 @@ public class CrosshairHandler implements LayeredDraw.Layer {
         if(mcInstance.getOverlay() instanceof HUDRadialOverlay) {
             return false;
         }
+        assert mcInstance.player != null;
         if(mcInstance.player.isCreative()) {
             return false;
         }
