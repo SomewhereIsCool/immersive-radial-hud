@@ -40,10 +40,6 @@ public class HUDManager {
         }
     }
 
-    /**TODO: Must implement pressAllowed() feature on cases:
-     *  - When player opens chat screen
-     *  - Much more, ask the community or explore
-     */
     public static boolean pressAllowed() {
         return mcInstance.screen == null;
     }
