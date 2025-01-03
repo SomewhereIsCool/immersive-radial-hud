@@ -16,6 +16,8 @@ public class HUDCrosshairTextures
             fromNamespaceAndPath(ImmersiveRadialHUD.MODID, "textures/gui/sprites/hud/full_hunger_bar.png");
 
     public static ResourceLocation BUBBLE = ResourceLocation.
-            fromNamespaceAndPath("minecraft", "textures/particle/bubble.png");
+            fromNamespaceAndPath(ImmersiveRadialHUD.MODID, "textures/gui/sprites/hud/breath_bar.png");
+    public static ResourceLocation ABSORPTION = ResourceLocation.
+            fromNamespaceAndPath(ImmersiveRadialHUD.MODID, "textures/gui/sprites/hud/full_absorption_bar.png");
 
 }

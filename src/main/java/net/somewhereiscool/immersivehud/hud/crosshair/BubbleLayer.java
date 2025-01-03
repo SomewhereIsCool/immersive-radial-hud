@@ -25,7 +25,6 @@ public class BubbleLayer implements LayeredDraw.Layer {
         RESTORED,
         SHRINK,
         GROW,
-        SHAKING,
         POP
     }
 
@@ -81,9 +80,14 @@ public class BubbleLayer implements LayeredDraw.Layer {
     }
 
     public void showBubble(GuiGraphics guiGraphics) {
-        int bubbleWidth = bubbleSize / 15;
-        int bubbleHeight = bubbleSize / 15;
-        guiGraphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.BUBBLE, (xCenter - bubbleWidth / 2) - 2, (yCenter - bubbleHeight / 2) - 2 , 0, 0, bubbleWidth, bubbleHeight, bubbleWidth, bubbleHeight);
-    }
+        int totalTicks = 320;
+        int totalPixels = 22;
+        int ticksPerPixel = totalTicks / totalPixels;
+
+        int currentAirSupply = getPlayerWaterLevel() + 20;
+        int bubbleHeight = Math.min(currentAirSupply / ticksPerPixel, totalPixels);
+        if(CrosshairHandler.checkOverlayAllowed())  {
+            guiGraphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.BUBBLE, xCenter - 14, yCenter - 12, 0, 0, 6, bubbleHeight, 6, 22);    }
+        }
 
 }

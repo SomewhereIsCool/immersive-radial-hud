@@ -33,10 +33,11 @@ public class CrosshairHandler implements LayeredDraw.Layer {
         if(checkOverlayAllowed()) {
             renderHealthRadial(guiGraphics);
             renderHungerRadial(guiGraphics);
+            renderAbsorptionRadial(guiGraphics);
         }
     }
 
-    public boolean checkOverlayAllowed() {
+    public static boolean checkOverlayAllowed() {
         if(mcInstance.getOverlay() instanceof HUDRadialOverlay) {
             return false;
         }
@@ -54,6 +55,12 @@ public class CrosshairHandler implements LayeredDraw.Layer {
             return false;
         }
         return true;
+    }
+
+    public void renderAbsorptionRadial(GuiGraphics graphics) {
+        assert mcInstance.player != null;
+        float absorption = Math.min(mcInstance.player.getAbsorptionAmount(), 20);
+        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.ABSORPTION, xCenter - 13, yCenter - 11, 0,0, 4, (int)absorption, 4, 20);
     }
 
     public void renderHealthRadial(GuiGraphics graphics) {
