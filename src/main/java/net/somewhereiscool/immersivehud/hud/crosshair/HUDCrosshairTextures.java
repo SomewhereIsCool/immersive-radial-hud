@@ -19,5 +19,9 @@ public class HUDCrosshairTextures
             fromNamespaceAndPath(ImmersiveRadialHUD.MODID, "textures/gui/sprites/hud/breath_bar.png");
     public static ResourceLocation ABSORPTION = ResourceLocation.
             fromNamespaceAndPath(ImmersiveRadialHUD.MODID, "textures/gui/sprites/hud/full_absorption_bar.png");
+    public static ResourceLocation VEHICLE = ResourceLocation.
+            fromNamespaceAndPath(ImmersiveRadialHUD.MODID, "textures/gui/sprites/hud/full_vehicle_bar.png");
+    public static ResourceLocation VEHICLE_SECOND = ResourceLocation.
+            fromNamespaceAndPath(ImmersiveRadialHUD.MODID, "textures/gui/sprites/hud/full_vehicle_bar2.png");
 
 }
