@@ -33,9 +33,9 @@ public class CrosshairHandler implements LayeredDraw.Layer {
     public void renderHealthRadial(GuiGraphics graphics) {
         assert mcInstance.player != null;
         float health = mcInstance.player.getHealth();
-        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.EMPTY_HEALTH_BAR, xCenter - 11, yCenter - 10, 0, 0, 4, 20, 4, 20,
+        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.EMPTY_HEALTH_BAR, xCenter - 11, yCenter - 11, 0, 0, 4, 20, 4, 20,
                 ARGB.color(100, 100, 100, 100));
-        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.FULL_HEALTH_BAR, xCenter - 11, yCenter - 10, 0, 0, 4, (int) health, 4, 20,
+        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.FULL_HEALTH_BAR, xCenter - 11, yCenter - 11, 0, 0, 4, (int) health, 4, 20,
                 ARGB.color(255, 255, 255, 255));
 
     }
@@ -43,9 +43,9 @@ public class CrosshairHandler implements LayeredDraw.Layer {
     public void renderHungerRadial(GuiGraphics graphics) {
         assert mcInstance.player != null;
         float hunger = mcInstance.player.getFoodData().getFoodLevel();
-        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.EMPTY_HUNGER_BAR, xCenter + 6, yCenter -10, 0, 0, 4, 20, 4, 20,
+        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.EMPTY_HUNGER_BAR, xCenter + 6, yCenter - 11, 0, 0, 4, 20, 4, 20,
                 ARGB.color(100, 100, 100,100));
-        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.FULL_HUNGER_BAR, xCenter + 6, yCenter -10, 0, 0, 4, (int)hunger, 4, 20,
+        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.FULL_HUNGER_BAR, xCenter + 6, yCenter - 11, 0, 0, 4, (int)hunger, 4, 20,
                 ARGB.color(255, 255, 255,255));
     }
 
