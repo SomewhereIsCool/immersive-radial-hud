@@ -1,6 +1,6 @@
 package net.somewhereiscool.immersivehud;
 
-import net.somewhereiscool.immersivehud.hud.HUDLanguageProvider;
+import net.somewhereiscool.immersivehud.hud.main.HUDLanguageProvider;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.slf4j.Logger;
@@ -22,6 +22,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+
+//TODO: Cleanup
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(ImmersiveRadialHUD.MODID)

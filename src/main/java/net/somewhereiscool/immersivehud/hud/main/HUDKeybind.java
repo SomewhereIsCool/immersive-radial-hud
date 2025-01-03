@@ -1,4 +1,4 @@
-package net.somewhereiscool.immersivehud.hud;
+package net.somewhereiscool.immersivehud.hud.main;
 
 import net.minecraft.client.KeyMapping;
 import net.neoforged.api.distmarker.Dist;

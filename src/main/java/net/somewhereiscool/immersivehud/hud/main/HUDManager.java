@@ -1,37 +1,73 @@
-package net.somewhereiscool.immersivehud.hud;
+package net.somewhereiscool.immersivehud.hud.main;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.somewhereiscool.immersivehud.ImmersiveRadialHUD;
+import net.somewhereiscool.immersivehud.hud.crosshair.CrosshairHandler;
+import net.somewhereiscool.immersivehud.hud.radial.HUDRadialOverlay;
+import net.somewhereiscool.immersivehud.mixin.GuiMixin;
 
 import java.util.Objects;
 
-/*
+/**
 * The "control center" for the HUD. It manages when graphics should be applied,
-* looks for events to apply to HUDRadialOverlay
+* looks for events to apply to HUDRadialOverlay. Also toggles the HUD display.
 *
 *
  */
-
-@EventBusSubscriber
+@EventBusSubscriber(modid = ImmersiveRadialHUD.MODID)
 public class HUDManager {
+    private static final Minecraft mcInstance = Minecraft.getInstance();
+    private static final long window = mcInstance.getWindow().getWindow();
+    private static boolean hudEnabled = false;
+
     @SubscribeEvent
-    public static void checkKeyPresses(InputEvent.Key key) {
-        if(key.getKey() == HUDKeybinds.OPENHUDRADIAL.getKey().getValue()) {
-            // Render just the items
-            Minecraft.getInstance().setOverlay(new HUDRadialOverlay(key, Minecraft.getInstance()));
+    public static void handleKeyPresses(InputEvent.Key key) {
+        if(pressAllowed()) {
+            checkKeyPresses(key);
         }
     }
 
-    /*
+    /**TODO: Must implement pressAllowed() feature on cases:
+     *  - When player opens chat screen
+     *  - Much more, ask the community or explore
+     */
+    public static boolean pressAllowed() {
+        return mcInstance.screen == null;
+    }
+
+    public static void checkKeyPresses(InputEvent.Key key) {
+        if(key.getKey() == HUDKeybinds.OPENHUDRADIAL.getKey().getValue()) {
+            // Render just the items
+            Minecraft.getInstance().setOverlay(new HUDRadialOverlay(key, mcInstance));
+        }
+        if(InputConstants.isKeyDown(window, key.getKey())) {
+            // Toggle HUD display
+            if(key.getKey() == HUDKeybinds.TOGGLEHUD.getKey().getValue()) showOrHideHUD(key);
+        }
+    }
+
+    /**
+     * @see GuiMixin
+     *
+     */
+    public static void showOrHideHUD(InputEvent.Key hudKey) {
+        hudEnabled = !hudEnabled;
+    }
+
+    /**
     * Events below check if the player changes HP, changes hunger, is underwater, or has armor
      */
     @SubscribeEvent
@@ -65,6 +101,7 @@ public class HUDManager {
         }
     }
 
+    /** For play testing */
     public static void healthChange(Player player) {
         Objects.requireNonNull(player.getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("HP Change"));
     }
@@ -73,4 +110,14 @@ public class HUDManager {
         Objects.requireNonNull(player.getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("Hunger Change"));
     }
 
+    /**
+     * Getters and setters :D
+     */
+    public static boolean isHudEnabled() {
+        return hudEnabled;
+    }
+
+    public static void setHudEnabled(boolean hudEnabled) {
+        HUDManager.hudEnabled = hudEnabled;
+    }
 }

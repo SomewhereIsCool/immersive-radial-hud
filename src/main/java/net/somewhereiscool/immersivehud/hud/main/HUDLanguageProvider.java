@@ -1,4 +1,4 @@
-package net.somewhereiscool.immersivehud.hud;
+package net.somewhereiscool.immersivehud.hud.main;
 
 import net.somewhereiscool.immersivehud.ImmersiveRadialHUD;
 import net.minecraft.data.PackOutput;

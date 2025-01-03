@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "net.somewhereiscool.immersivehud.mixin",
+  "mixins": [
+    "GuiMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

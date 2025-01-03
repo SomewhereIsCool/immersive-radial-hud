@@ -1,4 +1,4 @@
-package net.somewhereiscool.immersivehud.hud;
+package net.somewhereiscool.immersivehud.hud.main;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
@@ -14,11 +14,13 @@ public final class HUDKeybinds {
 
     public static final KeyMapping OPENHUDRADIAL;
     public static final KeyMapping RADIALSETTINGS;
+    public static final KeyMapping TOGGLEHUD;
 
     public static List<KeyMapping> getKeys() {
         return keys;
     }
 
+    // TODO: Consider simpler keybinds
     static {
         OPENHUDRADIAL = new KeyMapping(
                 "Open Radial HUD",
@@ -34,8 +36,15 @@ public final class HUDKeybinds {
                 GLFW.GLFW_KEY_R,
                 HUDKeybind.getCategory()
         );
+        TOGGLEHUD = new KeyMapping(
+                "Toggle HUD",
+                InputConstants.Type.KEYSYM,
+                GLFW.GLFW_KEY_Y,
+                HUDKeybind.getCategory()
+        );
 
         keys.add(OPENHUDRADIAL);
         keys.add(RADIALSETTINGS);
+        keys.add(TOGGLEHUD);
     }
 }

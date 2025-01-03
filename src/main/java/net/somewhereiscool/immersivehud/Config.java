@@ -17,6 +17,11 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 @EventBusSubscriber(modid = ImmersiveRadialHUD.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class Config
 {
+    /**TODO: Add config for:
+    *   - Animations for radial
+    *   - Hide/show certain HUDs when immersive mode is on/off
+    *   - Show item name when hovering item in radial
+    */
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     private static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
