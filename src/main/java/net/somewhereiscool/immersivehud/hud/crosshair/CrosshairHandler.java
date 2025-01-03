@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 
 /**TODO: Implement features
  *  - Move Armor and XP hud to inventory
- *  - Show new health and hunger bar
  *  - Add graphics events for health, hunger, armor, swim
  *  - Lerp?
  */
