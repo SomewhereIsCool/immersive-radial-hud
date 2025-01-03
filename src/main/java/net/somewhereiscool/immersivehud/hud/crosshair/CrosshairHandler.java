@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.telemetry.TelemetryProperty;
 import net.minecraft.util.ARGB;
 import net.somewhereiscool.immersivehud.hud.radial.HUDRadialOverlay;
 import org.jetbrains.annotations.NotNull;
@@ -29,10 +30,26 @@ public class CrosshairHandler implements LayeredDraw.Layer {
         yCenter = guiGraphics.guiHeight()/2;
 
         // Do not render if HUDRadialOverlay is shown
-        if(!(mcInstance.getOverlay() instanceof HUDRadialOverlay)) {
+        if(checkOverlayAllowed()) {
             renderHealthRadial(guiGraphics);
             renderHungerRadial(guiGraphics);
         }
+    }
+
+    public boolean checkOverlayAllowed() {
+        if(mcInstance.getOverlay() instanceof HUDRadialOverlay) {
+            return false;
+        }
+        if(mcInstance.player.isCreative()) {
+            return false;
+        }
+        if(mcInstance.player.isSpectator()) {
+            return false;
+        }
+        if(mcInstance.options.hideGui) {
+            return false;
+        }
+        return true;
     }
 
     public void renderHealthRadial(GuiGraphics graphics) {
