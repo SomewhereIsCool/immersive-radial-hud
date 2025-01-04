@@ -18,9 +18,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public class Config
 {
     /**TODO: Add config for:
-    *   - Animations for radial
     *   - Hide/show certain HUDs when immersive mode is on/off
-    *   - Show item name when hovering item in radial
     */
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
