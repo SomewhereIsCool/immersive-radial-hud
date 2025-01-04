@@ -1,5 +1,6 @@
 package net.somewhereiscool.immersivehud;
 
+import net.neoforged.neoforge.network.event.RegisterConfigurationTasksEvent;
 import net.somewhereiscool.immersivehud.hud.main.HUDLanguageProvider;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -55,13 +56,6 @@ public class ImmersiveRadialHUD
     {
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
-
-        if (Config.logDirtBlock)
-            LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
-
-        LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
-
-        Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
 
     // Add the example block item to the building blocks tab
@@ -82,6 +76,8 @@ public class ImmersiveRadialHUD
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents
     {
+
+
         @SubscribeEvent
         public static void registerLanguageProvider(GatherDataEvent.Client event) {
             PackOutput packOutput = event.getGenerator().getPackOutput();

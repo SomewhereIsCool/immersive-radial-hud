@@ -19,7 +19,7 @@ public class GuiMixin {
      */
     @Inject(method = "renderHealthLevel", at = @At("HEAD"), cancellable = true)
     private void renderHealthLevel(GuiGraphics p_283143_, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled()) {
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
             ci.cancel();
             return;
         }
@@ -27,7 +27,7 @@ public class GuiMixin {
 
     @Inject(method = "renderHotbar", at = @At("HEAD"), cancellable = true)
     private void renderHotbar(GuiGraphics p_316628_, DeltaTracker p_348543_, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled()) {
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
             ci.cancel();
             return;
         }
@@ -35,7 +35,7 @@ public class GuiMixin {
 
     @Inject(method = "renderFoodLevel", at = @At("HEAD"), cancellable = true)
     private void renderFoodLevel(GuiGraphics p_283143_, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled()) {
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
             ci.cancel();
             return;
         }
@@ -67,7 +67,7 @@ public class GuiMixin {
 
     @Inject(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;)V", at = @At("HEAD"), cancellable = true)
     private void renderSelectedItemName(GuiGraphics guiGraphics, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled()) {
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
             ci.cancel();
             return;
         }
@@ -75,7 +75,7 @@ public class GuiMixin {
 
     @Inject(method = "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V", at = @At("HEAD"), cancellable = true)
     public void renderSelectedItemName(GuiGraphics guiGraphics, int yShift, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled()) {
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
             ci.cancel();
             return;
         }
@@ -83,7 +83,7 @@ public class GuiMixin {
 
     @Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
     private void renderCrosshair(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled()) {
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
             ci.cancel();
             return;
         }
@@ -91,7 +91,7 @@ public class GuiMixin {
 
     @Inject(method = "renderAirLevel", at = @At("HEAD"), cancellable = true)
     private void renderAirLevel(GuiGraphics p_283143_, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled()) {
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
             ci.cancel();
             return;
         }
@@ -99,7 +99,7 @@ public class GuiMixin {
 
     @Inject(method = "renderVehicleHealth", at = @At("HEAD"), cancellable = true)
     private void renderVehicleHealth(GuiGraphics guiGraphics, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled()) {
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
             ci.cancel();
             return;
         }
