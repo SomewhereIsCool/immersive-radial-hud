@@ -1,8 +1,10 @@
 package net.somewhereiscool.immersivehud.mixin;
 
 import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.world.entity.player.Player;
 import net.somewhereiscool.immersivehud.hud.main.HUDManager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,7 +43,7 @@ public class GuiMixin {
 
     @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
     private static void renderArmor(GuiGraphics guiGraphics, Player player, int y, int heartRows, int height, int x, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled()) {
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
             ci.cancel();
             return;
         }
@@ -49,7 +51,7 @@ public class GuiMixin {
 
     @Inject(method = "renderExperienceBar", at = @At("HEAD"), cancellable = true)
     private void renderExperienceBar(GuiGraphics guiGraphics, int x, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled()) {
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
             ci.cancel();
             return;
         }
@@ -57,7 +59,7 @@ public class GuiMixin {
 
     @Inject(method = "renderExperienceLevel", at = @At("HEAD"), cancellable = true)
     private void renderExperienceLevel(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled()) {
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
             ci.cancel();
             return;
         }
@@ -87,4 +89,19 @@ public class GuiMixin {
         }
     }
 
+    @Inject(method = "renderAirLevel", at = @At("HEAD"), cancellable = true)
+    private void renderAirLevel(GuiGraphics p_283143_, CallbackInfo ci) {
+        if(!HUDManager.isHudEnabled()) {
+            ci.cancel();
+            return;
+        }
+    }
+
+    @Inject(method = "renderVehicleHealth", at = @At("HEAD"), cancellable = true)
+    private void renderVehicleHealth(GuiGraphics guiGraphics, CallbackInfo ci) {
+        if(!HUDManager.isHudEnabled()) {
+            ci.cancel();
+            return;
+        }
+    }
 }
