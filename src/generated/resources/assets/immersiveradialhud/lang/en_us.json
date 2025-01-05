@@ -1,3 +1,6 @@
 {
-  "key.categories.immersiveradialhud": "HUD Keybinds"
+  "key.categories.immersiveradialhud": "HUD Keybinds",
+  "immersiveradialhud.config.hudConfig": "Crosshair Horizontal Distance",
+  "immersiveradialhud.config.radialDist": "Radial Distance",
+  "immersiveradialhud.config.showCrosshair": "Show Crosshair"
 }

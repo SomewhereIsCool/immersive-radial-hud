@@ -1,12 +1,7 @@
 package net.somewhereiscool.immersivehud;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -24,13 +19,21 @@ public class Config
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     // TODO: Figure out how to show make config
-    // TODO: Consider showing whole standard hud when Inventory is on
-    /*
-    private static ModConfigSpec.ConfigValue<Integer> hudDistance = BUILDER
-            .comment("Adjusts the distance between the hud crossbars for hunger and health.");
 
-     */
-    private static ModConfigSpec.ConfigValue<Integer> radialDistance;
+    public static final ModConfigSpec.ConfigValue<Integer> hudDistance = BUILDER
+            .comment("Adjusts the distance between the hud crossbars for hunger and health. Negative values further the distance while positive brings them closer.")
+            .translation(ImmersiveRadialHUD.MODID + ".config.hudConfig")
+            .defineInRange("hudConfig", 0, -200, 200);
+
+    public static final ModConfigSpec.ConfigValue<Integer> radialDistance = BUILDER
+            .comment("Adjust the radius size for the radial hotbar.")
+            .translation(ImmersiveRadialHUD.MODID + ".config.radialDist")
+            .defineInRange("radialDist", 50, 0, 100);
+
+    public static final ModConfigSpec.ConfigValue<Boolean> showCrosshair = BUILDER
+            .comment("Show crosshair while in radial mode.")
+            .translation(ImmersiveRadialHUD.MODID + ".config.showCrosshair")
+            .define("showCrosshair", true);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 

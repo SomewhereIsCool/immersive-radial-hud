@@ -6,14 +6,20 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.world.entity.player.Player;
+import net.somewhereiscool.immersivehud.Config;
 import net.somewhereiscool.immersivehud.hud.main.HUDManager;
+import net.somewhereiscool.immersivehud.hud.radial.HUDRadialOverlay;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Gui.class)
 public class GuiMixin {
+    @Shadow @Final private Minecraft minecraft;
+
     /**
     * Doing a Mixin because I believe it would be much better to adjust the code directly than to extend
      */
@@ -83,9 +89,23 @@ public class GuiMixin {
 
     @Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
     private void renderCrosshair(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci) {
-        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)) {
+        if(!Config.showCrosshair.get()) {
             ci.cancel();
             return;
+        }
+        if(HUDManager.isHudEnabled() && (HUDManager.getMcInstance().getOverlay() instanceof HUDRadialOverlay)) {
+            ci.cancel();
+            return;
+        }
+        if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)
+                // TODO: Figure out why crosshair will not hide in terms of this condition
+                && (HUDManager.getMcInstance().getOverlay() instanceof HUDRadialOverlay))
+        {
+
+                ci.cancel();
+                return;
+
+
         }
     }
 
