@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.somewhereiscool.immersivehud.Config;
 
 @EventBusSubscriber
 public class BubbleLayer implements LayeredDraw.Layer {
@@ -86,7 +87,7 @@ public class BubbleLayer implements LayeredDraw.Layer {
         int currentAirSupply = getPlayerWaterLevel() + 20;
         int bubbleHeight = Math.min(currentAirSupply / ticksPerPixel, totalPixels);
         if(CrosshairHandler.checkOverlayAllowed())  {
-            guiGraphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.BUBBLE, xCenter - 14, yCenter - 12, 0, 0, 6, bubbleHeight, 6, 22);    }
+            guiGraphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.BUBBLE, xCenter - 14 + Config.hudDistance.get(), yCenter - 11, 0, 0, 6, bubbleHeight, 6, 22);    }
         }
 
 }

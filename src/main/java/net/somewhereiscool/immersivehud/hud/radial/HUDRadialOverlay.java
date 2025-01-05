@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Overlay;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -12,14 +13,16 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.event.InputEvent;
+import net.somewhereiscool.immersivehud.Config;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
+import java.util.Optional;
 
 public class HUDRadialOverlay extends Overlay {
     private static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/hud/hotbar_selection.png");
-    private static final Integer MAX_RADIUS = 50;
+    private static Integer MAX_RADIUS;
     private static Minecraft mcInstance;
 
     private static int xCenter;
@@ -30,6 +33,7 @@ public class HUDRadialOverlay extends Overlay {
 
     private static InputEvent.Key key;
     private static long window;
+
 
     public HUDRadialOverlay(InputEvent.Key keyBind, Minecraft mc) {
         key = keyBind;
@@ -44,7 +48,12 @@ public class HUDRadialOverlay extends Overlay {
         return false;
     }
 
+    public static boolean isInstanceOfRadial() {
+        return mcInstance.getOverlay() instanceof HUDRadialOverlay;
+    }
+
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        MAX_RADIUS = Config.radialDistance.get();
         checkKeyReleased();
         xCenter = graphics.guiWidth()/2;
         yCenter = graphics.guiHeight()/2;

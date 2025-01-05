@@ -1,6 +1,5 @@
 package net.somewhereiscool.immersivehud.hud.crosshair;
 
-
 import net.minecraft.resources.ResourceLocation;
 import net.somewhereiscool.immersivehud.ImmersiveRadialHUD;
 

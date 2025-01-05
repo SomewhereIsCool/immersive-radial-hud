@@ -4,18 +4,13 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.somewhereiscool.immersivehud.ImmersiveRadialHUD;
-import net.somewhereiscool.immersivehud.hud.crosshair.CrosshairHandler;
 import net.somewhereiscool.immersivehud.hud.radial.HUDRadialOverlay;
 import net.somewhereiscool.immersivehud.mixin.GuiMixin;
 
@@ -80,6 +75,7 @@ public class HUDManager {
         }
     }
 
+    /*
     @SubscribeEvent
     public static void playerInWater(LivingBreatheEvent event) {
         // Add HUD indicator for player in water (bubble)
@@ -88,6 +84,9 @@ public class HUDManager {
         }
     }
 
+     */
+
+    /*
     @SubscribeEvent
     public static void playerHasArmor(PlayerTickEvent.Pre event) {
         // Add HUD indicator for armor
@@ -96,6 +95,7 @@ public class HUDManager {
             Objects.requireNonNull(event.getEntity().getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("You have armor!"));
         }
     }
+     */
 
     /** For play testing */
     public static void healthChange(Player player) {
