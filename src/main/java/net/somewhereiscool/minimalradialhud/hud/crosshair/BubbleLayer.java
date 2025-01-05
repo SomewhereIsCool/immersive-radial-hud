@@ -1,4 +1,4 @@
-package net.somewhereiscool.immersivehud.hud.crosshair;
+package net.somewhereiscool.minimalradialhud.hud.crosshair;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -9,8 +9,10 @@ import net.minecraft.client.renderer.RenderType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
-import net.somewhereiscool.immersivehud.Config;
+import net.somewhereiscool.minimalradialhud.Config;
 import org.jetbrains.annotations.NotNull;
+
+import static net.somewhereiscool.minimalradialhud.hud.crosshair.CrosshairHandler.xLeftCenterOffset;
 
 //TODO: Simplify this code
 @EventBusSubscriber
@@ -85,7 +87,7 @@ public class BubbleLayer implements LayeredDraw.Layer {
         int currentAirSupply = getPlayerWaterLevel() + 20;
         int bubbleHeight = Math.min(currentAirSupply / ticksPerPixel, totalPixels);
         if(CrosshairHandler.checkOverlayAllowed())  {
-            guiGraphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.BUBBLE, xCenter - 14 + Config.hudDistance.get(), yCenter - 11, 0, 0, 6, bubbleHeight, 6, 22);    }
+            guiGraphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.BUBBLE, xCenter - 14 + Config.hudDistance.get() + xLeftCenterOffset, yCenter - CrosshairHandler.yCenterOffset - 1, 0, 0, 6, bubbleHeight, 6, 22);    }
         }
 
 }

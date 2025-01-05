@@ -1,4 +1,4 @@
-package net.somewhereiscool.immersivehud.hud.main;
+package net.somewhereiscool.minimalradialhud.hud.main;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
@@ -10,9 +10,9 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
-import net.somewhereiscool.immersivehud.ImmersiveRadialHUD;
-import net.somewhereiscool.immersivehud.hud.radial.HUDRadialOverlay;
-import net.somewhereiscool.immersivehud.mixin.GuiMixin;
+import net.somewhereiscool.minimalradialhud.MinimalRadialHud;
+import net.somewhereiscool.minimalradialhud.hud.radial.HUDRadialOverlay;
+import net.somewhereiscool.minimalradialhud.mixin.GuiMixin;
 
 import java.util.Objects;
 
@@ -22,7 +22,7 @@ import java.util.Objects;
 *
 *
  */
-@EventBusSubscriber(modid = ImmersiveRadialHUD.MODID)
+@EventBusSubscriber(modid = MinimalRadialHud.MODID)
 public class HUDManager {
     private static final Minecraft mcInstance = Minecraft.getInstance();
     private static final long window = mcInstance.getWindow().getWindow();

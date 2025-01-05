@@ -1,4 +1,4 @@
-package net.somewhereiscool.immersivehud;
+package net.somewhereiscool.minimalradialhud;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -9,7 +9,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
 // Demonstrates how to use Neo's config APIs
-@EventBusSubscriber(modid = ImmersiveRadialHUD.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = MinimalRadialHud.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class Config
 {
     /** TODO: Add config for:
@@ -22,17 +22,17 @@ public class Config
 
     public static final ModConfigSpec.ConfigValue<Integer> hudDistance = BUILDER
             .comment("Adjusts the distance between the hud crossbars for hunger and health. Negative values further the distance while positive brings them closer.")
-            .translation(ImmersiveRadialHUD.MODID + ".config.hudConfig")
+            .translation(MinimalRadialHud.MODID + ".config.hudConfig")
             .defineInRange("hudConfig", 0, -200, 200);
 
     public static final ModConfigSpec.ConfigValue<Integer> radialDistance = BUILDER
             .comment("Adjust the radius size for the radial hotbar.")
-            .translation(ImmersiveRadialHUD.MODID + ".config.radialDist")
+            .translation(MinimalRadialHud.MODID + ".config.radialDist")
             .defineInRange("radialDist", 50, 0, 100);
 
     public static final ModConfigSpec.ConfigValue<Boolean> showCrosshair = BUILDER
             .comment("Show crosshair while in radial mode.")
-            .translation(ImmersiveRadialHUD.MODID + ".config.showCrosshair")
+            .translation(MinimalRadialHud.MODID + ".config.showCrosshair")
             .define("showCrosshair", true);
 
     static final ModConfigSpec SPEC = BUILDER.build();

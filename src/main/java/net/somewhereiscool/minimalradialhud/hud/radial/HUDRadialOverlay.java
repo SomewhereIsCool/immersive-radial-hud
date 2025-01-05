@@ -1,4 +1,4 @@
-package net.somewhereiscool.immersivehud.hud.radial;
+package net.somewhereiscool.minimalradialhud.hud.radial;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
@@ -12,7 +12,7 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.event.InputEvent;
-import net.somewhereiscool.immersivehud.Config;
+import net.somewhereiscool.minimalradialhud.Config;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 

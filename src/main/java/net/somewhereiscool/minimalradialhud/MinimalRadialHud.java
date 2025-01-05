@@ -1,8 +1,8 @@
-package net.somewhereiscool.immersivehud;
+package net.somewhereiscool.minimalradialhud;
 
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.somewhereiscool.immersivehud.hud.main.HUDLanguageProvider;
+import net.somewhereiscool.minimalradialhud.hud.main.HUDLanguageProvider;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.slf4j.Logger;
@@ -27,18 +27,18 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 //TODO: Cleanup
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
-@Mod(ImmersiveRadialHUD.MODID)
-public class ImmersiveRadialHUD
+@Mod(MinimalRadialHud.MODID)
+public class MinimalRadialHud
 {
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "immersiveradialhud";
+    public static final String MODID = "minimalradialhud";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
-    public ImmersiveRadialHUD(IEventBus modEventBus, ModContainer modContainer)
+    public MinimalRadialHud(IEventBus modEventBus, ModContainer modContainer)
     {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
