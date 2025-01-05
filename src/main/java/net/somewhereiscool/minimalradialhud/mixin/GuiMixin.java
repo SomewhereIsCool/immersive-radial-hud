@@ -98,14 +98,10 @@ public class GuiMixin {
             return;
         }
         if(!HUDManager.isHudEnabled() && !(Minecraft.getInstance().screen instanceof InventoryScreen)
-                // TODO: Figure out why crosshair will not hide in terms of this condition
                 && (HUDManager.getMcInstance().getOverlay() instanceof HUDRadialOverlay))
         {
-
                 ci.cancel();
                 return;
-
-
         }
     }
 
