@@ -6,6 +6,8 @@ A mod that simplifies the HUD by replacing the HUD info into a crosshair hud. Th
 
 Hotbar is now replaced by a radial HUD.
 
+
+
 > ## Supported Modding API's
 
 ---
