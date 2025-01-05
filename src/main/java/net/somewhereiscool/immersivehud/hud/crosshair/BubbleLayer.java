@@ -10,15 +10,15 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.somewhereiscool.immersivehud.Config;
+import org.jetbrains.annotations.NotNull;
 
+//TODO: Simplify this code
 @EventBusSubscriber
 public class BubbleLayer implements LayeredDraw.Layer {
     private static final Minecraft mcInstance = Minecraft.getInstance();
     private static boolean isUnderwater;
-    private static int bubbleSize;
     private static int xCenter;
     private static int yCenter;
-    private static boolean isPopped;
     private static BubbleState bubbleState;
 
     enum BubbleState {
@@ -60,7 +60,7 @@ public class BubbleLayer implements LayeredDraw.Layer {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public void render(GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
         xCenter = guiGraphics.guiWidth()/2;
         yCenter = guiGraphics.guiHeight()/2;
 
@@ -70,8 +70,6 @@ public class BubbleLayer implements LayeredDraw.Layer {
                 return;
             }
             case GROW, SHRINK -> {
-                bubbleSize = getPlayerWaterLevel();
-                isPopped = false;
             }
         }
 

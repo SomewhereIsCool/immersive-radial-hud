@@ -4,7 +4,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Overlay;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
-import java.util.Optional;
 
 public class HUDRadialOverlay extends Overlay {
     private static final ResourceLocation SLOT = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/sprites/hud/hotbar_selection.png");
@@ -46,10 +44,6 @@ public class HUDRadialOverlay extends Overlay {
     @Override
     public boolean isPauseScreen() {
         return false;
-    }
-
-    public static boolean isInstanceOfRadial() {
-        return mcInstance.getOverlay() instanceof HUDRadialOverlay;
     }
 
     public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {

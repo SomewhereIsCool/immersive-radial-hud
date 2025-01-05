@@ -46,7 +46,7 @@ public class HUDManager {
         }
         if(InputConstants.isKeyDown(window, key.getKey())) {
             // Toggle HUD display
-            if(key.getKey() == HUDKeybinds.TOGGLEHUD.getKey().getValue()) showOrHideHUD(key);
+            if(key.getKey() == HUDKeybinds.TOGGLEHUD.getKey().getValue()) showOrHideHUD();
         }
     }
 
@@ -54,7 +54,7 @@ public class HUDManager {
      * @see GuiMixin
      *
      */
-    public static void showOrHideHUD(InputEvent.Key hudKey) {
+    public static void showOrHideHUD() {
         hudEnabled = !hudEnabled;
     }
 
@@ -111,10 +111,6 @@ public class HUDManager {
      */
     public static boolean isHudEnabled() {
         return hudEnabled;
-    }
-
-    public static void setHudEnabled(boolean hudEnabled) {
-        HUDManager.hudEnabled = hudEnabled;
     }
 
     public static Minecraft getMcInstance() {
