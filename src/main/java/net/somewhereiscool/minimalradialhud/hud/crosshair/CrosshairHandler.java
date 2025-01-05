@@ -1,16 +1,16 @@
-package net.somewhereiscool.immersivehud.hud.crosshair;
+package net.somewhereiscool.minimalradialhud.hud.crosshair;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.world.entity.animal.horse.Horse;
-import net.somewhereiscool.immersivehud.hud.main.HUDManager;
-import net.somewhereiscool.immersivehud.hud.radial.HUDRadialOverlay;
+import net.somewhereiscool.minimalradialhud.Config;
+import net.somewhereiscool.minimalradialhud.hud.main.HUDManager;
+import net.somewhereiscool.minimalradialhud.hud.radial.HUDRadialOverlay;
 import org.jetbrains.annotations.NotNull;
 
 /**TODO: Implement features
@@ -19,10 +19,14 @@ import org.jetbrains.annotations.NotNull;
 
 // Should be called when the player joins
 public class CrosshairHandler implements LayeredDraw.Layer {
-    private final static Minecraft mcInstance = Minecraft.getInstance();
+    public final static Minecraft mcInstance = Minecraft.getInstance();
 
     private static int xCenter;
     private static int yCenter;
+
+    public static int xLeftCenterOffset;
+    public static int xRightCenterOffset;
+    public static int yCenterOffset = 10;
 
     public CrosshairHandler() {}
 
@@ -30,6 +34,12 @@ public class CrosshairHandler implements LayeredDraw.Layer {
     public void render(GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
         xCenter = guiGraphics.guiWidth()/2;
         yCenter = guiGraphics.guiHeight()/2;
+        xLeftCenterOffset = Config.hudDistance.get();
+        xRightCenterOffset = -(Config.hudDistance.get());
+
+        // Fix for 1 off pixel
+        xLeftCenterOffset += (guiGraphics.guiWidth() % 2 == 0) ? 0 : 2;
+        yCenterOffset = (guiGraphics.guiHeight() % 2 == 0) ? 11 : 10;
 
         // Do not render if HUDRadialOverlay is shown
         if(checkOverlayAllowed()) {
@@ -63,16 +73,16 @@ public class CrosshairHandler implements LayeredDraw.Layer {
     public void renderAbsorptionRadial(GuiGraphics graphics) {
         assert mcInstance.player != null;
         float absorption = Math.min(mcInstance.player.getAbsorptionAmount(), 20);
-        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.ABSORPTION, xCenter - 13, yCenter - 11, 0,0, 4, (int)absorption, 4, 20,
+        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.ABSORPTION, xCenter - 13 + xLeftCenterOffset, yCenter - yCenterOffset, 0,0, 4, (int)absorption, 4, 20,
                 ARGB.color(255, 51, 255, 207));
     }
 
     public void renderHealthRadial(GuiGraphics graphics) {
         assert mcInstance.player != null;
         float health = mcInstance.player.getHealth();
-        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.EMPTY_HEALTH_BAR, xCenter - 13, yCenter - 11, 0, 0, 4, 20, 4, 20,
+        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.EMPTY_HEALTH_BAR, xCenter - 13 + xLeftCenterOffset, yCenter - yCenterOffset, 0, 0, 4, 20, 4, 20,
                 ARGB.color(100, 100, 100, 100));
-        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.FULL_HEALTH_BAR, xCenter - 13, yCenter - 11, 0, 0, 4, (int) health, 4, 20,
+        graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.FULL_HEALTH_BAR, xCenter - 13 + xLeftCenterOffset, yCenter - yCenterOffset, 0, 0, 4, (int)health, 4, 20,
                 ARGB.color(255, 255, 255, 255));
 
     }
@@ -81,9 +91,9 @@ public class CrosshairHandler implements LayeredDraw.Layer {
         assert mcInstance.player != null;
         float hunger = mcInstance.player.getFoodData().getFoodLevel();
         if(mcInstance.player.getVehicle() == null) {
-            graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.EMPTY_HUNGER_BAR, xCenter + 8, yCenter - 11, 0, 0, 4, 20, 4, 20,
+            graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.EMPTY_HUNGER_BAR, xCenter + 8 + xRightCenterOffset, yCenter - yCenterOffset,  0, 0, 0, 4, 20, 4, 20,
                     ARGB.color(100, 100, 100,100));
-            graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.FULL_HUNGER_BAR, xCenter + 8, yCenter - 11, 0, 0, 4, (int)hunger, 4, 20,
+            graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.FULL_HUNGER_BAR, xCenter + 8 + xRightCenterOffset, yCenter - yCenterOffset, 0, 0, 4, (int)hunger, 4, 20,
                     ARGB.color(255, 255, 255,255));
         }
 
@@ -99,10 +109,10 @@ public class CrosshairHandler implements LayeredDraw.Layer {
                 vehicleHealth = camel.getHealth();
             }
             if(vehicleHealth >= 20) {
-                graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.VEHICLE, xCenter + 8, yCenter - 11, 0, 0, 4, 20, 4, 20);
-                graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.VEHICLE_SECOND, xCenter + 7, yCenter - 12, 0, 0, 6, (int)vehicleHealth % 20, 6, 22);
+                graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.VEHICLE, xCenter + 8 + xRightCenterOffset, yCenter - yCenterOffset, 0, 0, 4, 20, 4, 20);
+                graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.VEHICLE_SECOND, xCenter + 7 + xRightCenterOffset, yCenter - yCenterOffset - 1, 0, 0, 6, (int)vehicleHealth % 20, 6, 22);
             } else {
-                graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.VEHICLE, xCenter + 8, yCenter - 11, 0, 0, 4, (int)vehicleHealth, 4, 20);
+                graphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.VEHICLE, xCenter + 8 + xRightCenterOffset, yCenter - yCenterOffset, 0, 0, 4, (int)vehicleHealth, 4, 20);
             }
         }
 

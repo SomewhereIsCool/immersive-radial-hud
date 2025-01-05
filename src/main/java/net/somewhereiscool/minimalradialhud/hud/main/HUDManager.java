@@ -1,23 +1,18 @@
-package net.somewhereiscool.immersivehud.hud.main;
+package net.somewhereiscool.minimalradialhud.hud.main;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
-import net.somewhereiscool.immersivehud.ImmersiveRadialHUD;
-import net.somewhereiscool.immersivehud.hud.crosshair.CrosshairHandler;
-import net.somewhereiscool.immersivehud.hud.radial.HUDRadialOverlay;
-import net.somewhereiscool.immersivehud.mixin.GuiMixin;
+import net.somewhereiscool.minimalradialhud.MinimalRadialHud;
+import net.somewhereiscool.minimalradialhud.hud.radial.HUDRadialOverlay;
+import net.somewhereiscool.minimalradialhud.mixin.GuiMixin;
 
 import java.util.Objects;
 
@@ -27,7 +22,7 @@ import java.util.Objects;
 *
 *
  */
-@EventBusSubscriber(modid = ImmersiveRadialHUD.MODID)
+@EventBusSubscriber(modid = MinimalRadialHud.MODID)
 public class HUDManager {
     private static final Minecraft mcInstance = Minecraft.getInstance();
     private static final long window = mcInstance.getWindow().getWindow();
@@ -51,7 +46,7 @@ public class HUDManager {
         }
         if(InputConstants.isKeyDown(window, key.getKey())) {
             // Toggle HUD display
-            if(key.getKey() == HUDKeybinds.TOGGLEHUD.getKey().getValue()) showOrHideHUD(key);
+            if(key.getKey() == HUDKeybinds.TOGGLEHUD.getKey().getValue()) showOrHideHUD();
         }
     }
 
@@ -59,7 +54,7 @@ public class HUDManager {
      * @see GuiMixin
      *
      */
-    public static void showOrHideHUD(InputEvent.Key hudKey) {
+    public static void showOrHideHUD() {
         hudEnabled = !hudEnabled;
     }
 
@@ -80,6 +75,7 @@ public class HUDManager {
         }
     }
 
+    /*
     @SubscribeEvent
     public static void playerInWater(LivingBreatheEvent event) {
         // Add HUD indicator for player in water (bubble)
@@ -88,6 +84,9 @@ public class HUDManager {
         }
     }
 
+     */
+
+    /*
     @SubscribeEvent
     public static void playerHasArmor(PlayerTickEvent.Pre event) {
         // Add HUD indicator for armor
@@ -96,6 +95,7 @@ public class HUDManager {
             Objects.requireNonNull(event.getEntity().getServer(), "ServerPlayer does not exist in HUDManager").sendSystemMessage(Component.literal("You have armor!"));
         }
     }
+     */
 
     /** For play testing */
     public static void healthChange(Player player) {
@@ -111,10 +111,6 @@ public class HUDManager {
      */
     public static boolean isHudEnabled() {
         return hudEnabled;
-    }
-
-    public static void setHudEnabled(boolean hudEnabled) {
-        HUDManager.hudEnabled = hudEnabled;
     }
 
     public static Minecraft getMcInstance() {

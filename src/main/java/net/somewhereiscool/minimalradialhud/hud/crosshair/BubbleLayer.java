@@ -1,4 +1,4 @@
-package net.somewhereiscool.immersivehud.hud.crosshair;
+package net.somewhereiscool.minimalradialhud.hud.crosshair;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -9,15 +9,18 @@ import net.minecraft.client.renderer.RenderType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.somewhereiscool.minimalradialhud.Config;
+import org.jetbrains.annotations.NotNull;
 
+import static net.somewhereiscool.minimalradialhud.hud.crosshair.CrosshairHandler.xLeftCenterOffset;
+
+//TODO: Simplify this code
 @EventBusSubscriber
 public class BubbleLayer implements LayeredDraw.Layer {
     private static final Minecraft mcInstance = Minecraft.getInstance();
     private static boolean isUnderwater;
-    private static int bubbleSize;
     private static int xCenter;
     private static int yCenter;
-    private static boolean isPopped;
     private static BubbleState bubbleState;
 
     enum BubbleState {
@@ -59,7 +62,7 @@ public class BubbleLayer implements LayeredDraw.Layer {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public void render(GuiGraphics guiGraphics, @NotNull DeltaTracker deltaTracker) {
         xCenter = guiGraphics.guiWidth()/2;
         yCenter = guiGraphics.guiHeight()/2;
 
@@ -69,8 +72,6 @@ public class BubbleLayer implements LayeredDraw.Layer {
                 return;
             }
             case GROW, SHRINK -> {
-                bubbleSize = getPlayerWaterLevel();
-                isPopped = false;
             }
         }
 
@@ -86,7 +87,7 @@ public class BubbleLayer implements LayeredDraw.Layer {
         int currentAirSupply = getPlayerWaterLevel() + 20;
         int bubbleHeight = Math.min(currentAirSupply / ticksPerPixel, totalPixels);
         if(CrosshairHandler.checkOverlayAllowed())  {
-            guiGraphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.BUBBLE, xCenter - 14, yCenter - 12, 0, 0, 6, bubbleHeight, 6, 22);    }
+            guiGraphics.blit(RenderType.CROSSHAIR, HUDCrosshairTextures.BUBBLE, xCenter - 14 + Config.hudDistance.get() + xLeftCenterOffset, yCenter - CrosshairHandler.yCenterOffset - 1, 0, 0, 6, bubbleHeight, 6, 22);    }
         }
 
 }

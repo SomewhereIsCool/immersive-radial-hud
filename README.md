@@ -1,25 +1,20 @@
+> # Minimal Radial HUD
 
-Installation information
-=======
+---
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+A mod that simplifies the HUD by replacing the HUD info into a crosshair hud. This allows for less distraction and allows the player to focus more on the center of the screen.
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+Hotbar is now replaced by a radial HUD.
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+> ## Supported Modding API's
+
+---
+
+* NeoForge
+* (Fabric is planned)
+
+> ## Links to Mod
+
+* [Modrinth](https://modrinth.com/project/minimal-radial-hud)

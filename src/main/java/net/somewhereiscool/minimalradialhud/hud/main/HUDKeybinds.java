@@ -1,9 +1,7 @@
-package net.somewhereiscool.immersivehud.hud.main;
+package net.somewhereiscool.minimalradialhud.hud.main;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import net.neoforged.neoforge.client.settings.KeyConflictContext;
-import net.neoforged.neoforge.client.settings.KeyModifier;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
@@ -20,10 +18,8 @@ public final class HUDKeybinds {
     );
     public static final KeyMapping TOGGLEHUD = new KeyMapping(
             "Toggle HUD",
-            KeyConflictContext.UNIVERSAL,
-            KeyModifier.ALT,
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_R,
+            GLFW.GLFW_KEY_LEFT_BRACKET,
             HUDKeybind.getCategory()
     );
 
