@@ -19,7 +19,7 @@ build
 
 # other
 eclipse
-run
+neoforge/run
 runs
 run-data
 
