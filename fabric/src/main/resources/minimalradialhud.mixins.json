@@ -2,7 +2,6 @@
   "required": true,
   "package": "net.somewhereiscool.minimalradialhud.mixin",
   "mixins": [
-    "GuiMixin"
   ],
   "client": [],
   "server": [],
