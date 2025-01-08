@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "net.somewhereiscool.minimalradialhud.mixin",
+  "mixins": [
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
